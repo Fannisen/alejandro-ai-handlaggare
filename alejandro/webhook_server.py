@@ -10,6 +10,7 @@ import time
 import logging
 import schedule
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -22,6 +23,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
+CORS(app)
 
 WEBHOOK_SECRET = os.getenv("WEBHOOK_SECRET", "alejandro-webhook-2026")
 POLLING_INTERVAL = int(os.getenv("POLLING_INTERVAL_SECONDS", "300"))
