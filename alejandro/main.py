@@ -193,7 +193,20 @@ def behandla_en_inlamning(inlamning: dict, handlaggare_id: int):
     
     return True
 
+_granskning_pagar = False
+
 def kör_granskning():
+    global _granskning_pagar
+    if _granskning_pagar:
+        logger.info("⏳ Granskning pågår redan – hoppar över")
+        return
+    _granskning_pagar = True
+    try:
+        _kör_granskning_intern()
+    finally:
+        _granskning_pagar = False
+
+def _kör_granskning_intern():
     """Huvudfunktion – körs enligt schema"""
     logger.info("🔄 Startar granskningscykel...")
     
